@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Section 12 DAX Part 3"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0ab191c3-541c-43c7-9161-4ea0403989ac"
+  }
+}

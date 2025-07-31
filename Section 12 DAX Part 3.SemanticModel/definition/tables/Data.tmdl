@@ -1,0 +1,164 @@
+table Data
+	lineageTag: cc322224-00b3-4838-b546-80770f9caa8a
+
+	column Product
+		dataType: string
+		lineageTag: 1c8d4b80-20de-449d-ad1e-a2ef80debf6f
+		summarizeBy: none
+		sourceColumn: Product
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: d999886c-45c2-4947-ba1a-6218bf66fdd1
+		summarizeBy: none
+		sourceColumn: Region
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		dataType: string
+		lineageTag: 3a9bb732-1728-4dbf-a5f1-7c2dc4d824af
+		summarizeBy: none
+		sourceColumn: Sales
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: string
+		lineageTag: 8b21b014-2f77-4c11-9bba-ba0d7af8d4af
+		summarizeBy: none
+		sourceColumn: Quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartDate
+		dataType: string
+		lineageTag: 95f200d4-e671-44db-9768-a5ac950f8273
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column EndDate
+		dataType: string
+		lineageTag: af873dc0-e547-4fb7-a5d7-d829ad70ecd2
+		summarizeBy: none
+		sourceColumn: EndDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start_Date =
+			
+			DATE(
+			    LEFT(Data[StartDate],4),
+			    MID(Data[StartDate],5,2),
+			    RIGHT(Data[StartDate],2)
+			)
+		formatString: mmmm d\, yyyy
+		lineageTag: 882fe93b-2d20-4f45-a95f-91fb7257dafe
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column End_Date =
+			
+			DATE(
+			    LEFT(Data[EndDate],4),
+			    MID(Data[EndDate],5,2),
+			    RIGHT(Data[EndDate],2)
+			)
+		formatString: Short Date
+		lineageTag: c373ab33-38db-4216-8bda-9991da3e20e8
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: f7ed4736-c784-4310-a40a-97acf7915738
+			defaultHierarchy: LocalDateTable_8e4e59c2-c664-421c-97e9-bf475122843e.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Date_Diff = DATEDIFF(Data[Start_Date],Data[End_Date],MONTH)
+		dataType: int64
+		lineageTag: 678f4a73-b2e1-4ec8-b5a6-cc05e5b8d516
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year_Frac = YEARFRAC(Data[Start_Date],Data[End_Date])
+		lineageTag: 3b14a37a-9928-4e57-a80d-c7bc7b7c9095
+		summarizeBy: sum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Day of Week' = WEEKDAY(Data[Start_Date])
+		formatString: 0
+		lineageTag: a45d17a1-a3d7-44fd-9f0c-6d5d89eeafd3
+		summarizeBy: sum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Num of Week' = WEEKNUM(Data[Start_Date])
+		formatString: 0
+		lineageTag: fa72243f-5dbc-4d76-a5ab-d930cd535208
+		summarizeBy: sum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Data = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("hZC7DsIwDEX/JXMH27X7GAtiZWWIOjAgsSFB/184CXafEkOSm+To6CYxhiFU4XL/TLoggM6UBhDrTkoURI1jFcNphinD7DCCwYCc4bMe3B7FLOm2/hHQAVrsNSZ4mGHO5uYAbvcwZbMVhYYWsffO19d7eqYGazWj0y2KlzZ69R8CtT8ROo1bt9ILOf+Tc2luv72zj18=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Product = _t, Region = _t, Sales = _t, Quantity = _t, StartDate = _t, EndDate = _t]),
+				    #"Removed Duplicates" = Table.Distinct(Source, {"StartDate"})
+				in
+				    #"Removed Duplicates"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

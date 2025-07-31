@@ -1,0 +1,142 @@
+table 'Calendar Table'
+	lineageTag: b8512dec-d36b-447e-8007-847e85d3810d
+	dataCategory: Time
+
+	measure 'Ranking of Product' = ```
+			RANKX(
+			    ALL(Data[Product]),
+			    [Total Sales],,
+			    DESC,Dense
+			)
+			    
+			```
+		formatString: 0
+		lineageTag: cbb4dc38-f1a3-4af2-8c8f-108f74cc6c15
+
+	measure 'Total Sales' = ```
+			SUM(Data[Sales])
+			    
+			```
+		formatString: 0
+		lineageTag: 0376ecc7-17b2-47cd-b21d-e73f062f4a37
+
+	measure 'Previous Year Sales' = ```
+			CALCULATE(
+			    SUM(Data[Sales]),
+			    SAMEPERIODLASTYEAR('Calendar Table'[Date])
+			)
+			    
+			```
+		formatString: 0
+		lineageTag: e00c2e06-c2d1-4fbd-856d-2a7f14079b7b
+
+	measure 'YTD Sales' = ```
+			CALCULATE(
+			    [Total Sales],
+			    DATESYTD('Calendar Table'[Date])
+			)
+			    
+			```
+		formatString: 0
+		lineageTag: 0d222265-e6ae-44d4-b5dd-3155093529f7
+
+	measure 'MTD Sales' = ```
+			CALCULATE(
+			    [Total Sales],
+			    DATESMTD('Calendar Table'[Date])
+			)
+			    
+			```
+		formatString: 0
+		lineageTag: 6290d625-8a93-4a6d-89ac-df542221f63c
+
+	measure 'QTD Sales' = ```
+			CALCULATE(
+			    [Total Sales],
+			    DATESQTD('Calendar Table'[Date])
+			)
+			    
+			```
+		formatString: 0
+		lineageTag: 258e5999-1f96-4e23-893f-6371fc93c9dd
+
+	measure 'YTD Sales Using Totalytd' = ```
+			TOTALYTD([Total Sales],'Calendar Table'[Date])
+			    
+			```
+		formatString: 0
+		lineageTag: 29a3f796-b99e-4c70-bf49-d96da90924c0
+
+	measure 'Sales Using Datesbetween' = ```
+			CALCULATE(
+			    [Total Sales],
+			    DATESBETWEEN('Calendar Table'[Date],"3/10/2025","6/25/2025"))
+			    
+			```
+		formatString: 0
+		lineageTag: 12d30e98-1417-48ca-a93d-45051a3789a8
+
+	measure 'Sales Using Datesinperiod' = ```
+			CALCULATE(
+			    [Total Sales],
+			    DATESINPERIOD(
+			        'Calendar Table'[Date],
+			    MAX('Calendar Table'[Date]),
+			    -3,
+			    MONTH)
+			    )
+			    
+			```
+		formatString: 0
+		lineageTag: e04a02aa-f1a6-4139-9964-4254f4179182
+
+	column Date
+		isKey
+		formatString: Short Date
+		lineageTag: dcca0520-c55d-4908-9652-b1c7cefef8e3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year = YEAR('Calendar Table'[Date])
+		dataType: int64
+		formatString: 0
+		lineageTag: f71a3125-270b-4fb4-9893-a73b38a27e08
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month = MONTH('Calendar Table'[Date])
+		dataType: string
+		lineageTag: 0efe6633-de35-4cff-a50f-23997232756c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter = QUARTER('Calendar Table'[Date])
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b003bbd-82bf-41c1-8916-1c9bbad897f5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date2 = DATE('Calendar Table'[Year],'Calendar Table'[Month],1)
+		formatString: General Date
+		lineageTag: afb3106c-8665-4a8d-838c-9baf6243a27c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Calendar Table' = calculated
+		mode: import
+		source =
+				
+				CALENDAR(MIN(Data[Start_Date]),MAX(Data[Start_Date]))
+
+	annotation PBI_Id = 303693df760c4c2299c4b9d53af86f35
+

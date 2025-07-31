@@ -1,0 +1,1330 @@
+createOrReplace
+
+	model Model
+		culture: en-US
+		defaultPowerBIDataSourceVersion: powerBI_V3
+		sourceQueryCulture: en-US
+		dataAccessOptions
+			legacyRedirects
+			returnErrorValuesAsNull
+
+		table Data
+			lineageTag: cc322224-00b3-4838-b546-80770f9caa8a
+
+			column Product
+				dataType: string
+				lineageTag: 1c8d4b80-20de-449d-ad1e-a2ef80debf6f
+				summarizeBy: none
+				sourceColumn: Product
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+			column Region
+				dataType: string
+				lineageTag: d999886c-45c2-4947-ba1a-6218bf66fdd1
+				summarizeBy: none
+				sourceColumn: Region
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+			column Sales
+				dataType: string
+				lineageTag: 3a9bb732-1728-4dbf-a5f1-7c2dc4d824af
+				summarizeBy: none
+				sourceColumn: Sales
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+			column Quantity
+				dataType: string
+				lineageTag: 8b21b014-2f77-4c11-9bba-ba0d7af8d4af
+				summarizeBy: none
+				sourceColumn: Quantity
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+			column StartDate
+				dataType: string
+				lineageTag: 95f200d4-e671-44db-9768-a5ac950f8273
+				summarizeBy: none
+				sourceColumn: StartDate
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+			column EndDate
+				dataType: string
+				lineageTag: af873dc0-e547-4fb7-a5d7-d829ad70ecd2
+				summarizeBy: none
+				sourceColumn: EndDate
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+			column Start_Date =
+					
+					DATE(
+					    LEFT(Data[StartDate],4),
+					    MID(Data[StartDate],5,2),
+					    RIGHT(Data[StartDate],2)
+					)
+				formatString: mmmm d\, yyyy
+				lineageTag: 882fe93b-2d20-4f45-a95f-91fb7257dafe
+				summarizeBy: none
+
+				changedProperty = DataType
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation UnderlyingDateTimeDataType = Date
+
+				annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+			column End_Date =
+					
+					DATE(
+					    LEFT(Data[EndDate],4),
+					    MID(Data[EndDate],5,2),
+					    RIGHT(Data[EndDate],2)
+					)
+				formatString: Short Date
+				lineageTag: c373ab33-38db-4216-8bda-9991da3e20e8
+				summarizeBy: none
+
+				variation Variation
+					isDefault
+					relationship: f7ed4736-c784-4310-a40a-97acf7915738
+					defaultHierarchy: LocalDateTable_8e4e59c2-c664-421c-97e9-bf475122843e.'Date Hierarchy'
+
+				changedProperty = DataType
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation UnderlyingDateTimeDataType = Date
+
+			column Date_Diff = DATEDIFF(Data[Start_Date],Data[End_Date],MONTH)
+				dataType: int64
+				lineageTag: 678f4a73-b2e1-4ec8-b5a6-cc05e5b8d516
+				summarizeBy: sum
+
+				changedProperty = DataType
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+			column Year_Frac = YEARFRAC(Data[Start_Date],Data[End_Date])
+				lineageTag: 3b14a37a-9928-4e57-a80d-c7bc7b7c9095
+				summarizeBy: sum
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+			column 'Day of Week' = WEEKDAY(Data[Start_Date])
+				formatString: 0
+				lineageTag: a45d17a1-a3d7-44fd-9f0c-6d5d89eeafd3
+				summarizeBy: sum
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+			column 'Num of Week' = WEEKNUM(Data[Start_Date])
+				formatString: 0
+				lineageTag: fa72243f-5dbc-4d76-a5ab-d930cd535208
+				summarizeBy: sum
+
+				changedProperty = IsHidden
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Data = m
+				mode: import
+				source =
+						let
+						    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("hZC7DsIwDEX/JXMH27X7GAtiZWWIOjAgsSFB/184CXafEkOSm+To6CYxhiFU4XL/TLoggM6UBhDrTkoURI1jFcNphinD7DCCwYCc4bMe3B7FLOm2/hHQAVrsNSZ4mGHO5uYAbvcwZbMVhYYWsffO19d7eqYGazWj0y2KlzZ69R8CtT8ROo1bt9ILOf+Tc2luv72zj18=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Product = _t, Region = _t, Sales = _t, Quantity = _t, StartDate = _t, EndDate = _t]),
+						    #"Removed Duplicates" = Table.Distinct(Source, {"StartDate"})
+						in
+						    #"Removed Duplicates"
+
+			changedProperty = IsHidden
+
+			annotation PBI_ResultType = Table
+
+			annotation PBI_NavigationStepName = Navigation
+
+		table DateTableTemplate_113586e3-67ad-4b9c-83a5-722965309eb2
+			isHidden
+			isPrivate
+			lineageTag: 898a84b0-2799-440a-a0a7-372c410335da
+
+			column Date
+				dataType: dateTime
+				isHidden
+				lineageTag: d4a2ce92-1e89-496f-8182-22c4d56749ba
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				lineageTag: ccd6ff1d-eeea-47e5-92dc-5b9eb695304e
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				lineageTag: a1f8ca42-a95f-4fd4-b555-040e7d04b1f5
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: f0aedc38-3615-436a-9d72-bf4756216b83
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				lineageTag: c0930a42-d945-40c0-90c1-834a92a17454
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: bf9df035-1152-4fdb-a155-7eb6e551d8df
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				lineageTag: a2573d06-5d19-4147-ad18-07c16f485dae
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Date Hierarchy'
+				lineageTag: 273a17c3-e620-4ccb-bed3-69fb7ad7aaf7
+
+				level Year
+					lineageTag: 042ea02f-08b1-4b58-8ca2-fa8beb646939
+					column: Year
+
+				level Quarter
+					lineageTag: 09f10b52-dc2b-4094-9872-c8019946731f
+					column: Quarter
+
+				level Month
+					lineageTag: 39dd3ba4-e97f-4861-a694-febf1dcb6e1e
+					column: Month
+
+				level Day
+					lineageTag: 84285250-e345-4cfe-b965-bb3def23f12c
+					column: Day
+
+				annotation TemplateId = DateHierarchy
+
+			partition DateTableTemplate_113586e3-67ad-4b9c-83a5-722965309eb2 = calculated
+				mode: import
+				source = Calendar(Date(2015,1,1), Date(2015,1,1))
+
+			annotation __PBI_TemplateDateTable = true
+
+			annotation DefaultItem = DateHierarchy
+
+		table LocalDateTable_8e4e59c2-c664-421c-97e9-bf475122843e
+			isHidden
+			showAsVariationsOnly
+			lineageTag: d238eb46-792a-498d-aa86-7cf3a50bda9e
+
+			column Date
+				dataType: dateTime
+				isHidden
+				lineageTag: c371217b-f541-4302-9d74-72c4a0aea221
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 2c13f217-33a9-40ef-8ca5-edf7713b73fe
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 9c0cb70e-c26f-41e0-b609-7d9c22f873a8
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: fa70d170-dfb3-49f6-b66e-b75481966d42
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				lineageTag: 395db98d-8f92-4a50-9aa4-1468d79b07b0
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: b9f3c995-ebf6-41cd-afb7-59c9a7ee3522
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				lineageTag: acd8f50c-4e61-42b9-a08c-f988b447f9b0
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Date Hierarchy'
+				lineageTag: 5b3598e8-4037-4f1d-8041-be55ba9a3a5e
+
+				level Year
+					lineageTag: 667ca3d3-e51c-440c-9824-1c2569000e30
+					column: Year
+
+				level Quarter
+					lineageTag: a381714e-fb09-41ef-beee-407781b8976b
+					column: Quarter
+
+				level Month
+					lineageTag: 0f313de1-553a-4921-9503-fcadd70798c1
+					column: Month
+
+				level Day
+					lineageTag: 07f0e019-b49f-482a-982b-4d3959d18b49
+					column: Day
+
+				annotation TemplateId = DateHierarchy
+
+			partition LocalDateTable_8e4e59c2-c664-421c-97e9-bf475122843e = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Data'[End_Date])), 1, 1), Date(Year(MAX('Data'[End_Date])), 12, 31))
+
+			annotation __PBI_LocalDateTable = true
+
+		table 'Calendar Table'
+			lineageTag: b8512dec-d36b-447e-8007-847e85d3810d
+			dataCategory: Time
+
+			measure 'Ranking of Product' = ```
+					RANKX(
+					    ALL(Data[Product]),
+					    [Total Sales],,
+					    DESC,Dense
+					)
+					    
+					```
+				formatString: 0
+				lineageTag: cbb4dc38-f1a3-4af2-8c8f-108f74cc6c15
+
+			measure 'Total Sales' = ```
+					SUM(Data[Sales])
+					    
+					```
+				formatString: 0
+				lineageTag: 0376ecc7-17b2-47cd-b21d-e73f062f4a37
+
+			measure 'Previous Year Sales' = ```
+					CALCULATE(
+					    SUM(Data[Sales]),
+					    SAMEPERIODLASTYEAR('Calendar Table'[Date])
+					)
+					    
+					```
+				formatString: 0
+				lineageTag: e00c2e06-c2d1-4fbd-856d-2a7f14079b7b
+
+			measure 'YTD Sales' = ```
+					CALCULATE(
+					    [Total Sales],
+					    DATESYTD('Calendar Table'[Date])
+					)
+					    
+					```
+				formatString: 0
+				lineageTag: 0d222265-e6ae-44d4-b5dd-3155093529f7
+
+			measure 'MTD Sales' = ```
+					CALCULATE(
+					    [Total Sales],
+					    DATESMTD('Calendar Table'[Date])
+					)
+					    
+					```
+				formatString: 0
+				lineageTag: 6290d625-8a93-4a6d-89ac-df542221f63c
+
+			measure 'QTD Sales' = ```
+					CALCULATE(
+					    [Total Sales],
+					    DATESQTD('Calendar Table'[Date])
+					)
+					    
+					```
+				formatString: 0
+				lineageTag: 258e5999-1f96-4e23-893f-6371fc93c9dd
+
+			measure 'YTD Sales Using Totalytd' = ```
+					TOTALYTD([Total Sales],'Calendar Table'[Date])
+					    
+					```
+				formatString: 0
+				lineageTag: 29a3f796-b99e-4c70-bf49-d96da90924c0
+
+			measure 'Sales Using Datesbetween' = ```
+					CALCULATE(
+					    [Total Sales],
+					    DATESBETWEEN('Calendar Table'[Date],"3/10/2025","6/25/2025"))
+					    
+					```
+				formatString: 0
+				lineageTag: 12d30e98-1417-48ca-a93d-45051a3789a8
+
+			measure 'Sales Using Datesinperiod' = ```
+					CALCULATE(
+					    [Total Sales],
+					    DATESINPERIOD(
+					        'Calendar Table'[Date],
+					    MAX('Calendar Table'[Date]),
+					    -3,
+					    MONTH)
+					    )
+					    
+					```
+				formatString: 0
+				lineageTag: e04a02aa-f1a6-4139-9964-4254f4179182
+
+			column Date
+				isKey
+				formatString: Short Date
+				lineageTag: dcca0520-c55d-4908-9652-b1c7cefef8e3
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation UnderlyingDateTimeDataType = Date
+
+			column Year = YEAR('Calendar Table'[Date])
+				dataType: int64
+				formatString: 0
+				lineageTag: f71a3125-270b-4fb4-9893-a73b38a27e08
+				summarizeBy: sum
+
+				annotation SummarizationSetBy = Automatic
+
+			column Month = MONTH('Calendar Table'[Date])
+				dataType: string
+				lineageTag: 0efe6633-de35-4cff-a50f-23997232756c
+				summarizeBy: none
+
+				annotation SummarizationSetBy = Automatic
+
+			column Quarter = QUARTER('Calendar Table'[Date])
+				dataType: int64
+				formatString: 0
+				lineageTag: 6b003bbd-82bf-41c1-8916-1c9bbad897f5
+				summarizeBy: sum
+
+				annotation SummarizationSetBy = Automatic
+
+			column Date2 = DATE('Calendar Table'[Year],'Calendar Table'[Month],1)
+				formatString: General Date
+				lineageTag: afb3106c-8665-4a8d-838c-9baf6243a27c
+				summarizeBy: none
+
+				annotation SummarizationSetBy = Automatic
+
+			partition 'Calendar Table' = calculated
+				mode: import
+				source =
+						
+						CALENDAR(MIN(Data[Start_Date]),MAX(Data[Start_Date]))
+
+			annotation PBI_Id = 303693df760c4c2299c4b9d53af86f35
+
+		table Data1
+			lineageTag: 0aa32e09-5fd8-426e-a4a8-55db93f7a390
+
+			measure SalesMTD = ```
+					CALCULATE(
+					    SUM(Data[Sales]),
+					    DATESMTD('Calendar Table'[Date])
+					)
+					    
+					```
+				formatString: 0
+				lineageTag: f57d212d-3e3b-4766-bb43-39139e5aef2d
+
+			column Date
+				formatString: Short Date
+				lineageTag: e2c03600-e325-432f-a70a-a2d38a6b64f2
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: Calendar Table[Date]
+				columnOrigin: 'Calendar Table'.Date
+
+				variation Variation
+					isDefault
+					relationship: 65090dcf-43f3-4217-b16d-d81f27ad2e3c
+					defaultHierarchy: LocalDateTable_24f67ea0-ed3e-488d-b442-b385d0e06921.'Date Hierarchy'
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation UnderlyingDateTimeDataType = Date
+
+			partition Data1 = calculated
+				mode: import
+				source = DATESYTD('Calendar Table'[Date],"3/31")
+
+			annotation PBI_Id = e53f2b47a85745c183b136a1c0398262
+
+		table LocalDateTable_24f67ea0-ed3e-488d-b442-b385d0e06921
+			isHidden
+			showAsVariationsOnly
+			lineageTag: 3c22b3ef-7dde-453d-874b-84c41346165f
+
+			column Date
+				dataType: dateTime
+				isHidden
+				lineageTag: fc0435bd-dd41-4e69-a380-915054649719
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 10fe6875-8900-422b-ba99-3201e7ae4e44
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 00613317-1344-429e-9946-0da4af22f2e0
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: 316cbe03-d944-46c6-bd6f-07bd399055b3
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				lineageTag: 37a01b99-9e76-42c9-8c6b-16a4217a9aa9
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: ea636ad5-ff9a-4423-88a4-a734681f37f4
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 19a28e12-3a8f-4cdd-a618-7804fa734cad
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Date Hierarchy'
+				lineageTag: 9d5afd0d-9f17-455c-ba23-963400524167
+
+				level Year
+					lineageTag: bf048c35-71ad-42cb-84f2-2638217b6524
+					column: Year
+
+				level Quarter
+					lineageTag: bcb0bb9d-2fdd-4ca9-9d1c-c55a7dd04074
+					column: Quarter
+
+				level Month
+					lineageTag: b1322cf7-b172-4429-ad15-6fb925a76961
+					column: Month
+
+				level Day
+					lineageTag: 6fb3e695-d014-4c19-a420-5fec07a5c47c
+					column: Day
+
+				annotation TemplateId = DateHierarchy
+
+			partition LocalDateTable_24f67ea0-ed3e-488d-b442-b385d0e06921 = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Data1'[Date])), 1, 1), Date(Year(MAX('Data1'[Date])), 12, 31))
+
+			annotation __PBI_LocalDateTable = true
+
+		table Table2
+			lineageTag: b36d824b-5596-410b-99e3-364a413fe8ff
+
+			column Date
+				formatString: General Date
+				lineageTag: 1f2d55e0-fde6-4f51-97c0-4875568beb32
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: Calendar Table[Date]
+				columnOrigin: 'Calendar Table'.Date
+
+				variation Variation
+					isDefault
+					relationship: 87ed00c8-bf12-4ed4-9060-226b4ab8b02f
+					defaultHierarchy: LocalDateTable_b8bd66e1-990f-46ea-9ae8-e090f53e9557.'Date Hierarchy'
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Table2 = calculated
+				mode: import
+				source = DATESMTD('Calendar Table'[Date])
+
+			annotation PBI_Id = 21c8fd6e056c4dfbb17c53df28694cc1
+
+		table LocalDateTable_b8bd66e1-990f-46ea-9ae8-e090f53e9557
+			isHidden
+			showAsVariationsOnly
+			lineageTag: 89e6a02d-4e29-4529-a084-4fc43ccaac52
+
+			column Date
+				dataType: dateTime
+				isHidden
+				lineageTag: 67f5333e-7f37-4e31-8777-8219c5cd2ef5
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				lineageTag: c06633a4-7c2f-4717-bd89-fe5abb7570fa
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				lineageTag: b11d77ba-0486-486f-9266-00bb4d844771
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: cccd3550-8e62-4652-a3dc-3451b5c068ed
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				lineageTag: 169eab5f-e007-4bcd-8d6a-07362f2cabc6
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: bb05dbce-2a71-48e0-aafc-06622f0816eb
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 44e818d4-27ab-4015-b94a-1a7b7c9b3361
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Date Hierarchy'
+				lineageTag: 063a9b4f-db47-40ab-8f08-01cb363c278c
+
+				level Year
+					lineageTag: 1be5fe62-0f28-4943-aaa0-e80409d98fe5
+					column: Year
+
+				level Quarter
+					lineageTag: de47b1ab-402f-4136-bf8c-e536286cf7c4
+					column: Quarter
+
+				level Month
+					lineageTag: 8390834d-a0da-49c8-9f9e-8a5da3bd4413
+					column: Month
+
+				level Day
+					lineageTag: deb86f97-c149-444b-9bd0-1893113003e5
+					column: Day
+
+				annotation TemplateId = DateHierarchy
+
+			partition LocalDateTable_b8bd66e1-990f-46ea-9ae8-e090f53e9557 = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Table2'[Date])), 1, 1), Date(Year(MAX('Table2'[Date])), 12, 31))
+
+			annotation __PBI_LocalDateTable = true
+
+		table Sales
+			lineageTag: c9e27d2a-38e2-4155-be60-93e3b6ade8d1
+
+			measure 'Customer Name (Both Direction)' = ```
+					CALCULATE(
+					    MAX(Customers[CustomerName]),
+					    CROSSFILTER(Customers[CustomerID],Sales[CustomerID],Both)
+					    )
+					    
+					```
+				lineageTag: 2f78680a-cb09-4fb3-bd6f-9f235e178ef4
+
+			column SalesID
+				dataType: int64
+				formatString: 0
+				lineageTag: 692f79fe-06fb-4269-ae26-83c858c84e35
+				summarizeBy: none
+				sourceColumn: SalesID
+
+				annotation SummarizationSetBy = Automatic
+
+			column ProductID
+				dataType: int64
+				formatString: 0
+				lineageTag: af5507cb-90f5-4af4-bf00-06ba3e16a1bc
+				summarizeBy: none
+				sourceColumn: ProductID
+
+				annotation SummarizationSetBy = Automatic
+
+			column CustomerID
+				dataType: string
+				lineageTag: 7d19528a-6792-4812-ba35-e9173bb83125
+				summarizeBy: none
+				sourceColumn: CustomerID
+
+				annotation SummarizationSetBy = Automatic
+
+			column Quantity
+				dataType: int64
+				formatString: 0
+				lineageTag: ba87713a-2216-486f-84d3-17cb4780af38
+				summarizeBy: sum
+				sourceColumn: Quantity
+
+				annotation SummarizationSetBy = Automatic
+
+			column SalesAmount
+				dataType: int64
+				formatString: 0
+				lineageTag: c860f06b-29db-45e7-abca-972b40abd22f
+				summarizeBy: sum
+				sourceColumn: SalesAmount
+
+				annotation SummarizationSetBy = Automatic
+
+			column 'Example of LookUp Value' =
+					LOOKUPVALUE(
+					    Products[ProductName],
+					    Products[ProductID],Sales[ProductID])
+				lineageTag: 3c243b81-5e58-4f78-ba16-a780278e63a7
+				summarizeBy: none
+
+				annotation SummarizationSetBy = Automatic
+
+			column 'Category Column using Related' =
+					
+					RELATED(Products[ProductName])
+				lineageTag: d1a435f4-159b-46e5-a069-2a1f0efd17a6
+				summarizeBy: none
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Sales = m
+				mode: import
+				source =
+						let
+						    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlTSUTI0AJHOBmDKCIhNDQyUYnWiwWxDAyOIJJgDxMZQSWNknSAOCJubQiRNwJLGqMaaQHWaohsLVm0Eko0FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [SalesID = _t, ProductID = _t, CustomerID = _t, Quantity = _t, SalesAmount = _t]),
+						    #"Changed Type" = Table.TransformColumnTypes(Source,{{"SalesID", Int64.Type}, {"ProductID", Int64.Type}, {"CustomerID", type text}, {"Quantity", Int64.Type}, {"SalesAmount", Int64.Type}})
+						in
+						    #"Changed Type"
+
+			annotation PBI_ResultType = Table
+
+		table Products
+			lineageTag: 2f23f267-0478-4880-b763-4b245e6494df
+
+			column ProductID
+				dataType: int64
+				formatString: 0
+				lineageTag: e15ffeb4-8352-42a3-ae02-e3d6192069e7
+				summarizeBy: none
+				sourceColumn: ProductID
+
+				annotation SummarizationSetBy = Automatic
+
+			column ProductName
+				dataType: string
+				lineageTag: b1d9ab04-f445-42af-9150-ea8f7a765d46
+				summarizeBy: none
+				sourceColumn: ProductName
+
+				annotation SummarizationSetBy = Automatic
+
+			column Category
+				dataType: string
+				lineageTag: 98e48310-32c4-40a6-8c56-890215f4bc3e
+				summarizeBy: none
+				sourceColumn: Category
+
+				annotation SummarizationSetBy = Automatic
+
+			column Price
+				dataType: int64
+				formatString: 0
+				lineageTag: 4e523bc5-b2e8-40ea-b7c0-826e24a4ff67
+				summarizeBy: none
+				sourceColumn: Price
+
+				annotation SummarizationSetBy = Automatic
+
+			column 'SalesAmount using RelatedTable' =
+					
+					SUMX(RELATEDTABLE(Sales),Sales[SalesAmount])
+				formatString: 0
+				lineageTag: d47c58e2-15a7-4f1c-a9dd-3ead17a5664f
+				summarizeBy: none
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Products = m
+				mode: import
+				source =
+						let
+						    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjQwVNJR8kksKMkvADJcc1KTS4ry8zKTi4E8I1MDpVgdkCIjIM83PykzJxVDkbEBTJExkOeckZhZBKTdSovyMktKi0DqjUAqYgE=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [ProductID = _t, ProductName = _t, Category = _t, Price = _t]),
+						    #"Changed Type" = Table.TransformColumnTypes(Source,{{"ProductID", Int64.Type}, {"ProductName", type text}, {"Category", type text}, {"Price", Int64.Type}})
+						in
+						    #"Changed Type"
+
+			annotation PBI_ResultType = Table
+
+		table Customers
+			lineageTag: 6358c82c-4c36-417c-a887-174fedc1d87b
+
+			column CustomerID
+				dataType: string
+				lineageTag: d794fe04-617e-4f2a-ac54-8f02a21fb0f2
+				summarizeBy: none
+				sourceColumn: CustomerID
+
+				annotation SummarizationSetBy = Automatic
+
+			column CustomerName
+				dataType: string
+				lineageTag: c4e377e9-b920-4f7c-a9e1-e25e8720887c
+				summarizeBy: none
+				sourceColumn: CustomerName
+
+				annotation SummarizationSetBy = Automatic
+
+			column Region
+				dataType: string
+				lineageTag: b9c7536a-5540-48e6-8d2e-48369ae42cf1
+				summarizeBy: none
+				sourceColumn: Region
+
+				annotation SummarizationSetBy = Automatic
+
+			partition Customers = m
+				mode: import
+				source =
+						let
+						    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcjYwMFTSUfLKz8gDUn75RSUZSrE6YHEjoIBjTmZyKpAOzi9FSBgDBYISs4Cka2JxiVJsLAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [CustomerID = _t, CustomerName = _t, Region = _t]),
+						    #"Changed Type" = Table.TransformColumnTypes(Source,{{"CustomerID", type text}, {"CustomerName", type text}, {"Region", type text}})
+						in
+						    #"Changed Type"
+
+			annotation PBI_ResultType = Table
+
+		table 'Sales Table for User Relationship'
+			lineageTag: b3efdab2-2c22-43b2-a56f-19a52071196d
+
+			measure 'Total Sales 2' = ```
+					CALCULATE(
+					SUM('Sales Table for User Relationship'[Amount]),
+					USERELATIONSHIP('Sales Table for User Relationship'[DeliveryDate],'Calendar Table for User Relationship'[Date])
+					)
+					
+					
+					```
+				formatString: 0
+				lineageTag: 9a067f10-1778-4c4c-ac85-0053e733baf7
+
+			column SalesID
+				dataType: int64
+				formatString: 0
+				lineageTag: aead69c7-03ea-4fda-ac5e-f7b09ee2f213
+				summarizeBy: none
+				sourceColumn: SalesID
+
+				annotation SummarizationSetBy = Automatic
+
+			column ProductID
+				dataType: string
+				lineageTag: dca2e77d-d06c-4280-b5b3-96822b901134
+				summarizeBy: none
+				sourceColumn: ProductID
+
+				annotation SummarizationSetBy = Automatic
+
+			column CustomerID
+				dataType: string
+				lineageTag: 32961af6-2406-406c-8960-72eed20c7eed
+				summarizeBy: none
+				sourceColumn: CustomerID
+
+				annotation SummarizationSetBy = Automatic
+
+			column OrderDate
+				dataType: dateTime
+				formatString: Long Date
+				lineageTag: 13ca9ce3-a494-4b04-ba71-539f78ebcce0
+				summarizeBy: none
+				sourceColumn: OrderDate
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation UnderlyingDateTimeDataType = Date
+
+			column DeliveryDate
+				dataType: dateTime
+				formatString: Long Date
+				lineageTag: 45a551d1-479f-4ea4-a188-f325fada7554
+				summarizeBy: none
+				sourceColumn: DeliveryDate
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation UnderlyingDateTimeDataType = Date
+
+			column Amount
+				dataType: int64
+				formatString: 0
+				lineageTag: d2340acf-a7b7-450f-9e7e-5fc18608ccdb
+				summarizeBy: sum
+				sourceColumn: Amount
+
+				annotation SummarizationSetBy = Automatic
+
+			partition 'Sales Table for User Relationship' = m
+				mode: import
+				source =
+						let
+						    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("Xc9LDoAgDATQu3RN0jIV454LsCfc/xo6iti4mTTk0U/vkiVJY1RG1lwUhu2uYas2k5G6gJpR8ReK9RNTO7W/vaF5acQ55dGsG6P6I45Ph95TF2pG5avrAh7G+FxkJ97ftT0M93jCcelxAg==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [SalesID = _t, ProductID = _t, CustomerID = _t, OrderDate = _t, DeliveryDate = _t, Amount = _t]),
+						    #"Changed Type" = Table.TransformColumnTypes(Source,{{"SalesID", Int64.Type}, {"ProductID", type text}, {"CustomerID", type text}, {"OrderDate", type date}, {"DeliveryDate", type date}, {"Amount", Int64.Type}})
+						in
+						    #"Changed Type"
+
+			annotation PBI_ResultType = Table
+
+		table 'Customer Table for User Relationship'
+			lineageTag: 518b4a9a-f266-4f3b-8b2b-940db293ab72
+
+			column CustomerID
+				dataType: string
+				lineageTag: e2f48a7e-cb9c-4cb4-a89d-2e6d9a9baee9
+				summarizeBy: none
+				sourceColumn: CustomerID
+
+				annotation SummarizationSetBy = Automatic
+
+			column CustomerName
+				dataType: string
+				lineageTag: 9651b1e3-2fe4-41eb-8bd5-7c0b91c04876
+				summarizeBy: none
+				sourceColumn: CustomerName
+
+				annotation SummarizationSetBy = Automatic
+
+			column Region
+				dataType: string
+				lineageTag: ca7b94a7-4f16-4aa7-87b6-8d40975525db
+				summarizeBy: none
+				sourceColumn: Region
+
+				annotation SummarizationSetBy = Automatic
+
+			partition 'Customer Table for User Relationship' = m
+				mode: import
+				source =
+						let
+						    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcjZU0lHyys/IA1J++UUlGUqxOkBRIyDXMSczORVIB+eXwoSNgVyn/CQg6ZpYXAIRMwHyXDIT8xKBdHgqSDQWAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [CustomerID = _t, CustomerName = _t, Region = _t]),
+						    #"Changed Type" = Table.TransformColumnTypes(Source,{{"CustomerID", type text}, {"CustomerName", type text}, {"Region", type text}})
+						in
+						    #"Changed Type"
+
+			annotation PBI_ResultType = Table
+
+		table 'Calendar Table for User Relationship'
+			lineageTag: f0be7c16-fd49-46e5-9d5e-3840e3ace87c
+
+			column Date
+				formatString: General Date
+				lineageTag: 57b28ccc-aa56-4c6a-813f-ea5f6188b445
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				variation Variation
+					isDefault
+					relationship: 83bae229-0ed6-4119-a0fe-18fd9ec4d3a2
+					defaultHierarchy: LocalDateTable_7aff05f2-41c8-4034-85da-adbe3603a45e.'Date Hierarchy'
+
+				annotation SummarizationSetBy = Automatic
+
+			partition 'Calendar Table for User Relationship' = calculated
+				mode: import
+				source =
+						
+						CALENDAR(DATE(2024,1,1),DATE(2024,3,31))
+
+			annotation PBI_Id = d06274e504c14ce797c121cf271bb3b3
+
+		table LocalDateTable_7aff05f2-41c8-4034-85da-adbe3603a45e
+			isHidden
+			showAsVariationsOnly
+			lineageTag: baf3a527-e05c-4b26-943e-406512564d23
+
+			column Date
+				dataType: dateTime
+				isHidden
+				lineageTag: 06708815-9f49-4322-8432-071f5ae59f67
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				lineageTag: b2e0972b-abba-4f4b-99bc-9a9311935ec2
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 0b1ea278-73da-4453-af76-7e43684506a9
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: bcc6ad78-7ae4-42f9-b621-5e2026829b5c
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				lineageTag: bc4388ec-e34e-4071-9e95-99b3bf6ce714
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: 1d84e360-ecdd-48fb-94ec-5880c97606cd
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 6ffa8f0c-bc46-4896-ad7b-b722e1b38fb0
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Date Hierarchy'
+				lineageTag: 99c98419-6dd7-4f67-81e2-f7e2907a6052
+
+				level Year
+					lineageTag: 1d932757-b8e6-4e34-968e-c23831b6860e
+					column: Year
+
+				level Quarter
+					lineageTag: 23ea3f41-684f-499e-b386-66fed4a9f20f
+					column: Quarter
+
+				level Month
+					lineageTag: 5c26afab-45eb-4cfc-be39-aa4c2b743a5f
+					column: Month
+
+				level Day
+					lineageTag: 343fa6a4-1704-4e2f-999f-147f012c976d
+					column: Day
+
+				annotation TemplateId = DateHierarchy
+
+			partition LocalDateTable_7aff05f2-41c8-4034-85da-adbe3603a45e = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Calendar Table for User Relationship'[Date])), 1, 1), Date(Year(MAX('Calendar Table for User Relationship'[Date])), 12, 31))
+
+			annotation __PBI_LocalDateTable = true
+
+		relationship f7ed4736-c784-4310-a40a-97acf7915738
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Data.End_Date
+			toColumn: LocalDateTable_8e4e59c2-c664-421c-97e9-bf475122843e.Date
+
+		relationship 65090dcf-43f3-4217-b16d-d81f27ad2e3c
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Data1.Date
+			toColumn: LocalDateTable_24f67ea0-ed3e-488d-b442-b385d0e06921.Date
+
+		relationship 87ed00c8-bf12-4ed4-9060-226b4ab8b02f
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Table2.Date
+			toColumn: LocalDateTable_b8bd66e1-990f-46ea-9ae8-e090f53e9557.Date
+
+		relationship 90bcb640-f821-2b97-8478-4f68d5c1c1bc
+			crossFilteringBehavior: bothDirections
+			fromCardinality: one
+			fromColumn: Data.Start_Date
+			toColumn: 'Calendar Table'.Date
+
+		relationship f123661c-f566-6edb-fd88-851499240854
+			fromColumn: Sales.ProductID
+			toColumn: Products.ProductID
+
+		relationship a1ab26a9-75e7-55ae-04b3-fbf6fc5ad225
+			fromColumn: Sales.CustomerID
+			toColumn: Customers.CustomerID
+
+		relationship AutoDetected_9a5a64b2-f673-43f0-b589-c41579d66f23
+			crossFilteringBehavior: bothDirections
+			fromCardinality: one
+			fromColumn: Sales.SalesID
+			toColumn: 'Sales Table for User Relationship'.SalesID
+
+		relationship AutoDetected_2efd44cb-6228-4b74-8781-673a7b7ef2ed
+			fromColumn: Data.Region
+			toColumn: 'Customer Table for User Relationship'.Region
+
+		relationship AutoDetected_15452c49-85f5-47ed-803b-3cc8c720389d
+			fromColumn: 'Sales Table for User Relationship'.CustomerID
+			toColumn: 'Customer Table for User Relationship'.CustomerID
+
+		relationship 83bae229-0ed6-4119-a0fe-18fd9ec4d3a2
+			joinOnDateBehavior: datePartOnly
+			fromColumn: 'Calendar Table for User Relationship'.Date
+			toColumn: LocalDateTable_7aff05f2-41c8-4034-85da-adbe3603a45e.Date
+
+		relationship b5dfdf11-03eb-a1d4-5177-3ded7426e794
+			crossFilteringBehavior: bothDirections
+			fromCardinality: one
+			fromColumn: 'Sales Table for User Relationship'.OrderDate
+			toColumn: 'Calendar Table for User Relationship'.Date
+
+		relationship f57763de-fea0-f9e8-59ca-ed91cd0757d1
+			isActive: false
+			crossFilteringBehavior: bothDirections
+			fromCardinality: one
+			fromColumn: 'Sales Table for User Relationship'.DeliveryDate
+			toColumn: 'Calendar Table for User Relationship'.Date
+
+		cultureInfo en-US
+
+			linguisticMetadata = {"Version":"1.0.0","Language":"en-US"}
+				contentType: json
+
+		annotation PBI_QueryOrder = ["Data","Sales","Products","Customers","Sales Table for User Relationship","Customer Table for User Relationship"]
+
+		annotation __PBI_TimeIntelligenceEnabled = 1
+
+		annotation PBIDesktopVersion = 2.145.1457.0 (25.07)+6e87ffa743c5aa106a85a0b5e383d76d522045ba
+
+		annotation PBI_ProTooling = ["DaxQueryView_Desktop","TMDLView_Desktop"]
+

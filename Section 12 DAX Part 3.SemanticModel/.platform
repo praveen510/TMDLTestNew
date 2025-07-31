@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Section 12 DAX Part 3"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "faadfffa-f25e-48ee-bd52-9d2eee2ef855"
+  }
+}

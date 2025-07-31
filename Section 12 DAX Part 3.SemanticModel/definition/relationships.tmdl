@@ -1,0 +1,61 @@
+relationship f7ed4736-c784-4310-a40a-97acf7915738
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Data.End_Date
+	toColumn: LocalDateTable_8e4e59c2-c664-421c-97e9-bf475122843e.Date
+
+relationship 65090dcf-43f3-4217-b16d-d81f27ad2e3c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Data1.Date
+	toColumn: LocalDateTable_24f67ea0-ed3e-488d-b442-b385d0e06921.Date
+
+relationship 87ed00c8-bf12-4ed4-9060-226b4ab8b02f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Table2.Date
+	toColumn: LocalDateTable_b8bd66e1-990f-46ea-9ae8-e090f53e9557.Date
+
+relationship 90bcb640-f821-2b97-8478-4f68d5c1c1bc
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Data.Start_Date
+	toColumn: 'Calendar Table'.Date
+
+relationship f123661c-f566-6edb-fd88-851499240854
+	fromColumn: Sales.ProductID
+	toColumn: Products.ProductID
+
+relationship a1ab26a9-75e7-55ae-04b3-fbf6fc5ad225
+	fromColumn: Sales.CustomerID
+	toColumn: Customers.CustomerID
+
+relationship AutoDetected_9a5a64b2-f673-43f0-b589-c41579d66f23
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Sales.SalesID
+	toColumn: 'Sales Table for User Relationship'.SalesID
+
+relationship AutoDetected_2efd44cb-6228-4b74-8781-673a7b7ef2ed
+	fromColumn: Data.Region
+	toColumn: 'Customer Table for User Relationship'.Region
+
+relationship AutoDetected_15452c49-85f5-47ed-803b-3cc8c720389d
+	fromColumn: 'Sales Table for User Relationship'.CustomerID
+	toColumn: 'Customer Table for User Relationship'.CustomerID
+
+relationship 83bae229-0ed6-4119-a0fe-18fd9ec4d3a2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Calendar Table for User Relationship'.Date
+	toColumn: LocalDateTable_7aff05f2-41c8-4034-85da-adbe3603a45e.Date
+
+relationship b5dfdf11-03eb-a1d4-5177-3ded7426e794
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Sales Table for User Relationship'.OrderDate
+	toColumn: 'Calendar Table for User Relationship'.Date
+
+relationship f57763de-fea0-f9e8-59ca-ed91cd0757d1
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Sales Table for User Relationship'.DeliveryDate
+	toColumn: 'Calendar Table for User Relationship'.Date
+

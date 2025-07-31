@@ -1,0 +1,25 @@
+table 'Calendar Table for User Relationship'
+	lineageTag: f0be7c16-fd49-46e5-9d5e-3840e3ace87c
+
+	column Date
+		formatString: General Date
+		lineageTag: 57b28ccc-aa56-4c6a-813f-ea5f6188b445
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 83bae229-0ed6-4119-a0fe-18fd9ec4d3a2
+			defaultHierarchy: LocalDateTable_7aff05f2-41c8-4034-85da-adbe3603a45e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Calendar Table for User Relationship' = calculated
+		mode: import
+		source =
+				
+				CALENDAR(DATE(2024,1,1),DATE(2024,3,31))
+
+	annotation PBI_Id = d06274e504c14ce797c121cf271bb3b3
+

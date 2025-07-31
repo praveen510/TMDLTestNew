@@ -1,0 +1,258 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 35.350887959236942
+          },
+          "nodeIndex": "Data",
+          "nodeLineageTag": "cc322224-00b3-4838-b546-80770f9caa8a",
+          "size": {
+            "height": 427,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 320.41869420864361,
+            "y": 391.804659595078
+          },
+          "nodeIndex": "Calendar Table",
+          "nodeLineageTag": "b8512dec-d36b-447e-8007-847e85d3810d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 404,
+            "y": 25
+          },
+          "nodeIndex": "Data1",
+          "nodeLineageTag": "0aa32e09-5fd8-426e-a4a8-55db93f7a390",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 43.75
+          },
+          "nodeIndex": "Table2",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1174.35958680773,
+            "y": 1235.5157703573288
+          },
+          "nodeIndex": "Sales",
+          "nodeLineageTag": "c9e27d2a-38e2-4155-be60-93e3b6ade8d1",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1204.5603844636134,
+            "y": 698.72727841361132
+          },
+          "nodeIndex": "Products",
+          "nodeLineageTag": "2f23f267-0478-4880-b763-4b245e6494df",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1516.5945506668331,
+            "y": 1066.1255520592892
+          },
+          "nodeIndex": "Customers",
+          "nodeLineageTag": "6358c82c-4c36-417c-a887-174fedc1d87b",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 2134.753528610805,
+            "y": 568.25788517866442
+          },
+          "nodeIndex": "Sales Table for User Relationship",
+          "nodeLineageTag": "b3efdab2-2c22-43b2-a56f-19a52071196d",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2418.9332794818511,
+            "y": 588.28175560560544
+          },
+          "nodeIndex": "Customer Table for User Relationship",
+          "nodeLineageTag": "518b4a9a-f266-4f3b-8b2b-940db293ab72",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1850.5945506668331,
+            "y": 584.39735947250608
+          },
+          "nodeIndex": "Calendar Table for User Relationship",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 39.450695702325511,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 575.20359600246479,
+            "y": 17.4393742349466
+          },
+          "nodeIndex": "Customers",
+          "nodeLineageTag": "6358c82c-4c36-417c-a887-174fedc1d87b",
+          "size": {
+            "height": 173.08550577594548,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 140.36645332548065,
+            "y": 21.595335428607559
+          },
+          "nodeIndex": "Products",
+          "nodeLineageTag": "2f23f267-0478-4880-b763-4b245e6494df",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 392.39462323067409,
+            "y": 306.7835704860052
+          },
+          "nodeIndex": "Sales",
+          "nodeLineageTag": "c9e27d2a-38e2-4155-be60-93e3b6ade8d1",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        }
+      ],
+      "name": "Layout 1",
+      "zoomValue": 99.594480792378988,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 6.6439908396390592
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 839.51877174668061,
+            "y": 144.75001036559385
+          },
+          "nodeIndex": "Calendar Table for User Relationship",
+          "nodeLineageTag": "f0be7c16-fd49-46e5-9d5e-3840e3ace87c",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 112.42042200429535,
+            "y": 362.36079542793289
+          },
+          "nodeIndex": "Customer Table for User Relationship",
+          "nodeLineageTag": "518b4a9a-f266-4f3b-8b2b-940db293ab72",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 352.43914713297232,
+            "y": 89.313867490090061
+          },
+          "nodeIndex": "Sales Table for User Relationship",
+          "nodeLineageTag": "b3efdab2-2c22-43b2-a56f-19a52071196d",
+          "size": {
+            "height": 317.55782006700542,
+            "width": 234
+          },
+          "zIndex": 8
+        }
+      ],
+      "name": "Layout 2",
+      "zoomValue": 97.914481659491727,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Layout 2",
+  "defaultDiagram": "All tables"
+}

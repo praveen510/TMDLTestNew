@@ -1,0 +1,6 @@
+createOrReplace
+
+	relationship f123661c-f566-6edb-fd88-851499240854
+		fromColumn: Sales.ProductID
+		toColumn: Products.ProductID
+

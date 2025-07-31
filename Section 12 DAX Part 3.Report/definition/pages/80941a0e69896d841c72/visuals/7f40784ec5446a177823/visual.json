@@ -1,0 +1,51 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "name": "7f40784ec5446a177823",
+  "position": {
+    "x": 37.5,
+    "y": 57.5,
+    "z": 0,
+    "height": 577.5,
+    "width": 661.66666666666674
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales Table for User Relationship"
+                    }
+                  },
+                  "Property": "Total Sales 2"
+                }
+              },
+              "queryRef": "Sales Table for User Relationship.Total Sales 2",
+              "nativeQueryRef": "Total Sales 2"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Calendar Table for User Relationship"
+                    }
+                  },
+                  "Property": "Date"
+                }
+              },
+              "queryRef": "Calendar Table for User Relationship.Date",
+              "nativeQueryRef": "Date"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

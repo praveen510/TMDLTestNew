@@ -1,0 +1,38 @@
+table Customers
+	lineageTag: 6358c82c-4c36-417c-a887-174fedc1d87b
+
+	column CustomerID
+		dataType: string
+		lineageTag: d794fe04-617e-4f2a-ac54-8f02a21fb0f2
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		lineageTag: c4e377e9-b920-4f7c-a9e1-e25e8720887c
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: b9c7536a-5540-48e6-8d2e-48369ae42cf1
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customers = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcjYwMFTSUfLKz8gDUn75RSUZSrE6YHEjoIBjTmZyKpAOzi9FSBgDBYISs4Cka2JxiVJsLAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [CustomerID = _t, CustomerName = _t, Region = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"CustomerID", type text}, {"CustomerName", type text}, {"Region", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

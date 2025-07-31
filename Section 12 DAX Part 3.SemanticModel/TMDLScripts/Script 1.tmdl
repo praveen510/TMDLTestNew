@@ -1,0 +1,6 @@
+createOrReplace
+
+	relationship AutoDetected_2efd44cb-6228-4b74-8781-673a7b7ef2ed
+		fromColumn: Data.Region
+		toColumn: 'Customer Table for User Relationship'.Region
+

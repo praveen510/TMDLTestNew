@@ -1,0 +1,81 @@
+table 'Sales Table for User Relationship'
+	lineageTag: b3efdab2-2c22-43b2-a56f-19a52071196d
+
+	measure 'Total Sales 2' = ```
+			CALCULATE(
+			SUM('Sales Table for User Relationship'[Amount]),
+			USERELATIONSHIP('Sales Table for User Relationship'[DeliveryDate],'Calendar Table for User Relationship'[Date])
+			)
+			
+			
+			```
+		formatString: 0
+		lineageTag: 9a067f10-1778-4c4c-ac85-0053e733baf7
+
+	column SalesID
+		dataType: int64
+		formatString: 0
+		lineageTag: aead69c7-03ea-4fda-ac5e-f7b09ee2f213
+		summarizeBy: none
+		sourceColumn: SalesID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: string
+		lineageTag: dca2e77d-d06c-4280-b5b3-96822b901134
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: string
+		lineageTag: 32961af6-2406-406c-8960-72eed20c7eed
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 13ca9ce3-a494-4b04-ba71-539f78ebcce0
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DeliveryDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 45a551d1-479f-4ea4-a188-f325fada7554
+		summarizeBy: none
+		sourceColumn: DeliveryDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Amount
+		dataType: int64
+		formatString: 0
+		lineageTag: d2340acf-a7b7-450f-9e7e-5fc18608ccdb
+		summarizeBy: sum
+		sourceColumn: Amount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Sales Table for User Relationship' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("Xc9LDoAgDATQu3RN0jIV454LsCfc/xo6iti4mTTk0U/vkiVJY1RG1lwUhu2uYas2k5G6gJpR8ReK9RNTO7W/vaF5acQ55dGsG6P6I45Ph95TF2pG5avrAh7G+FxkJ97ftT0M93jCcelxAg==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [SalesID = _t, ProductID = _t, CustomerID = _t, OrderDate = _t, DeliveryDate = _t, Amount = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"SalesID", Int64.Type}, {"ProductID", type text}, {"CustomerID", type text}, {"OrderDate", type date}, {"DeliveryDate", type date}, {"Amount", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

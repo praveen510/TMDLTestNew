@@ -1,0 +1,84 @@
+table Sales
+	lineageTag: c9e27d2a-38e2-4155-be60-93e3b6ade8d1
+
+	measure 'Customer Name (Both Direction)' = ```
+			CALCULATE(
+			    MAX(Customers[CustomerName]),
+			    CROSSFILTER(Customers[CustomerID],Sales[CustomerID],Both)
+			    )
+			    
+			```
+		lineageTag: 2f78680a-cb09-4fb3-bd6f-9f235e178ef4
+
+	column SalesID
+		dataType: int64
+		formatString: 0
+		lineageTag: 692f79fe-06fb-4269-ae26-83c858c84e35
+		summarizeBy: none
+		sourceColumn: SalesID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: int64
+		formatString: 0
+		lineageTag: af5507cb-90f5-4af4-bf00-06ba3e16a1bc
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: string
+		lineageTag: 7d19528a-6792-4812-ba35-e9173bb83125
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: ba87713a-2216-486f-84d3-17cb4780af38
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesAmount
+		dataType: int64
+		formatString: 0
+		lineageTag: c860f06b-29db-45e7-abca-972b40abd22f
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Example of LookUp Value' =
+			LOOKUPVALUE(
+			    Products[ProductName],
+			    Products[ProductID],Sales[ProductID])
+		lineageTag: 3c243b81-5e58-4f78-ba16-a780278e63a7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category Column using Related' =
+			
+			RELATED(Products[ProductName])
+		lineageTag: d1a435f4-159b-46e5-a069-2a1f0efd17a6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sales = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlTSUTI0AJHOBmDKCIhNDQyUYnWiwWxDAyOIJJgDxMZQSWNknSAOCJubQiRNwJLGqMaaQHWaohsLVm0Eko0FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [SalesID = _t, ProductID = _t, CustomerID = _t, Quantity = _t, SalesAmount = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"SalesID", Int64.Type}, {"ProductID", Int64.Type}, {"CustomerID", type text}, {"Quantity", Int64.Type}, {"SalesAmount", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

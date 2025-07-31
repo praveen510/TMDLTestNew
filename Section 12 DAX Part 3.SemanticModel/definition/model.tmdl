@@ -1,0 +1,34 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Data","Sales","Products","Customers","Sales Table for User Relationship","Customer Table for User Relationship"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.145.1457.0 (25.07)+6e87ffa743c5aa106a85a0b5e383d76d522045ba
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","TMDLView_Desktop","DevMode"]
+
+ref table Data
+ref table DateTableTemplate_113586e3-67ad-4b9c-83a5-722965309eb2
+ref table LocalDateTable_8e4e59c2-c664-421c-97e9-bf475122843e
+ref table 'Calendar Table'
+ref table Data1
+ref table LocalDateTable_24f67ea0-ed3e-488d-b442-b385d0e06921
+ref table Table2
+ref table LocalDateTable_b8bd66e1-990f-46ea-9ae8-e090f53e9557
+ref table Sales
+ref table Products
+ref table Customers
+ref table 'Sales Table for User Relationship'
+ref table 'Customer Table for User Relationship'
+ref table 'Calendar Table for User Relationship'
+ref table LocalDateTable_7aff05f2-41c8-4034-85da-adbe3603a45e
+
+ref cultureInfo en-US
+

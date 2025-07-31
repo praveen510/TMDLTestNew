@@ -1,0 +1,9 @@
+createOrReplace
+
+	relationship f57763de-fea0-f9e8-59ca-ed91cd0757d1
+		isActive: false
+		crossFilteringBehavior: bothDirections
+		fromCardinality: one
+		fromColumn: 'Sales Table for User Relationship'.DeliveryDate
+		toColumn: 'Calendar Table for User Relationship'.Date
+

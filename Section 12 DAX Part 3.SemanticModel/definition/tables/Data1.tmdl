@@ -1,0 +1,35 @@
+table Data1
+	lineageTag: 0aa32e09-5fd8-426e-a4a8-55db93f7a390
+
+	measure SalesMTD = ```
+			CALCULATE(
+			    SUM(Data[Sales]),
+			    DATESMTD('Calendar Table'[Date])
+			)
+			    
+			```
+		formatString: 0
+		lineageTag: f57d212d-3e3b-4766-bb43-39139e5aef2d
+
+	column Date
+		formatString: Short Date
+		lineageTag: e2c03600-e325-432f-a70a-a2d38a6b64f2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Calendar Table[Date]
+
+		variation Variation
+			isDefault
+			relationship: 65090dcf-43f3-4217-b16d-d81f27ad2e3c
+			defaultHierarchy: LocalDateTable_24f67ea0-ed3e-488d-b442-b385d0e06921.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Data1 = calculated
+		mode: import
+		source = DATESYTD('Calendar Table'[Date],"3/31")
+
+	annotation PBI_Id = e53f2b47a85745c183b136a1c0398262
+

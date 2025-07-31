@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "bedc23c42901fb5b6c7b",
+  "displayName": "RELATIONSHIP",
+  "displayOption": "ActualSize",
+  "height": 1400,
+  "width": 1280
+}

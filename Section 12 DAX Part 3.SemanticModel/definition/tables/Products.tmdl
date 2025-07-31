@@ -1,0 +1,57 @@
+table Products
+	lineageTag: 2f23f267-0478-4880-b763-4b245e6494df
+
+	column ProductID
+		dataType: int64
+		formatString: 0
+		lineageTag: e15ffeb4-8352-42a3-ae02-e3d6192069e7
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: b1d9ab04-f445-42af-9150-ea8f7a765d46
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 98e48310-32c4-40a6-8c56-890215f4bc3e
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e523bc5-b2e8-40ea-b7c0-826e24a4ff67
+		summarizeBy: none
+		sourceColumn: Price
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SalesAmount using RelatedTable' =
+			
+			SUMX(RELATEDTABLE(Sales),Sales[SalesAmount])
+		formatString: 0
+		lineageTag: d47c58e2-15a7-4f1c-a9dd-3ead17a5664f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Products = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjQwVNJR8kksKMkvADJcc1KTS4ry8zKTi4E8I1MDpVgdkCIjIM83PykzJxVDkbEBTJExkOeckZhZBKTdSovyMktKi0DqjUAqYgE=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [ProductID = _t, ProductName = _t, Category = _t, Price = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"ProductID", Int64.Type}, {"ProductName", type text}, {"Category", type text}, {"Price", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
